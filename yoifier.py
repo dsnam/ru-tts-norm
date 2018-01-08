@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Nov  6 20:22:58 2017
+Simple class to attempt to yoify a word that may have had the ё omitted. 
+Currently does not attempt to use any context to correct the author and will
+simply not modify the word if it is valid with no ё. This likely will not 
+completely resolve ambiguity like все vs всё at the moment.
 
-@author: dsn
+Needs a dictionary file. One is provided in data/.
+@author: Alexander Dodson
 """
 
 import re
 import pandas as pd
 
 class Yoifier:
-    def __init__(self):
-        self.words = set(pd.read_csv('dict_transformed.txt', header=None)[0])
+    def __init__(self, dict_path='data/dict_transformed.txt'):
+        self.words = set(pd.read_csv(dict_path, header=None)[0])
         self.ye_pat = re.compile('Е')
         self.yo_pat = re.compile('Ё')
         
